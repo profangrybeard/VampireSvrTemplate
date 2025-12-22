@@ -11,7 +11,6 @@ namespace VampireSurvivor.Data
         [Header("Player Settings")]
         [Min(0)] public float PlayerMoveSpeed = 5f;
         [Min(1)] public float PlayerMaxHealth = 100f;
-        [Min(0)] public float InvincibilityDuration = 0.5f;
 
         [Header("Camera Settings")]
         [Min(0)] public float CameraFollowSpeed = 5f;

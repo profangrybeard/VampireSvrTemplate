@@ -68,6 +68,7 @@ namespace VampireSurvivor.Entities.Projectiles
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (_weaponData == null) return;
             if (!other.CompareTag("Enemy")) return;
 
             var damageable = other.GetComponent<IDamageable>();

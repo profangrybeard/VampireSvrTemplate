@@ -11,7 +11,6 @@ namespace VampireSurvivor.UI
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Image _fillImage;
-        [SerializeField] private Gradient _healthGradient;
 
         private void OnEnable()
         {
@@ -36,11 +35,6 @@ namespace VampireSurvivor.UI
             if (_fillImage != null)
             {
                 _fillImage.fillAmount = percent;
-
-                if (_healthGradient != null)
-                {
-                    _fillImage.color = _healthGradient.Evaluate(percent);
-                }
             }
         }
     }

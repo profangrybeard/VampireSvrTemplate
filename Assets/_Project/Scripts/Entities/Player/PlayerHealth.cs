@@ -8,53 +8,27 @@ namespace VampireSurvivor.Entities.Player
 {
     /// <summary>
     /// Manages player health, damage, and death.
+    /// Uses continuous damage model (DPS) for enemy contact.
     /// </summary>
     public class PlayerHealth : MonoBehaviour, IDamageable, IKillable
     {
         [SerializeField] private GameConfig _config;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private float _currentHealth;
-        private float _invincibilityTimer;
-        private bool _isInvincible;
-        private Color _originalColor;
 
         public float CurrentHealth => _currentHealth;
         public float MaxHealth => _config != null ? _config.PlayerMaxHealth : 100f;
         public float HealthPercent => _currentHealth / MaxHealth;
         public bool IsAlive => _currentHealth > 0;
 
-        private void Awake()
-        {
-            if (_spriteRenderer == null)
-                _spriteRenderer = GetComponent<SpriteRenderer>();
-
-            if (_spriteRenderer != null)
-                _originalColor = _spriteRenderer.color;
-        }
-
         private void Start()
         {
             _currentHealth = MaxHealth;
         }
 
-        private void Update()
-        {
-            if (_isInvincible)
-            {
-                _invincibilityTimer -= Time.deltaTime;
-                if (_invincibilityTimer <= 0)
-                {
-                    _isInvincible = false;
-                    if (_spriteRenderer != null)
-                        _spriteRenderer.color = _originalColor;
-                }
-            }
-        }
-
         public void TakeDamage(float damage)
         {
-            if (!IsAlive || _isInvincible) return;
+            if (!IsAlive) return;
 
             _currentHealth = Mathf.Max(0, _currentHealth - damage);
 
@@ -64,22 +38,6 @@ namespace VampireSurvivor.Entities.Player
             {
                 Kill();
             }
-            else
-            {
-                StartInvincibility();
-            }
-        }
-
-        private void StartInvincibility()
-        {
-            if (_config == null) return;
-
-            _isInvincible = true;
-            _invincibilityTimer = _config.InvincibilityDuration;
-
-            // Visual feedback: flash white
-            if (_spriteRenderer != null)
-                _spriteRenderer.color = Color.white;
         }
 
         public void Kill()
@@ -96,7 +54,8 @@ namespace VampireSurvivor.Entities.Player
         }
 
         /// <summary>
-        /// Called when player touches an enemy.
+        /// Called every physics frame while player touches an enemy.
+        /// ContactDamage is treated as damage per second (DPS).
         /// </summary>
         private void OnCollisionStay2D(Collision2D collision)
         {

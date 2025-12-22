@@ -15,9 +15,9 @@ MonoBehaviour:
   EnemyName: Bat
   PoolKey: enemy_bat
   MaxHealth: 10
-  MoveSpeed: 2
-  ContactDamage: 5
+  MoveSpeed: 3
+  ContactDamage: 10
   XPValue: 1
   Color: {r: 1, g: 0, b: 0, a: 1}
-  Size: {x: 0.8, y: 0.8}
+  Size: {x: 1, y: 1}
   Prefab: {fileID: 4361799514113471220, guid: 294986b391ee2fd48b370fb5845b2c6c, type: 3}

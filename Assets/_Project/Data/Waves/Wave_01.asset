@@ -16,7 +16,7 @@ MonoBehaviour:
   StartDelay: 2
   Enemies:
   - EnemyType: {fileID: 11400000, guid: b8a97ef6597ad8a41bee4c576886a530, type: 2}
-    Count: 10
-    SpawnDelay: 0.5
+    Count: 500
+    SpawnDelay: 0.25
   SpawnRadius: 12
   SpawnFromOffscreen: 1

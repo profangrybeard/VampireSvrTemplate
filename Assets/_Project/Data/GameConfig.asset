@@ -19,5 +19,6 @@ MonoBehaviour:
   CameraOrthoSize: 8
   PlayAreaSize: {x: 50, y: 50}
   StartingWeapon: {fileID: 11400000, guid: 54973df9e2838584daf07fc4b3b0391c, type: 2}
-  Waves: []
+  Waves:
+  - {fileID: 11400000, guid: f14fb737ca843c84c8f38553322761ed, type: 2}
   TimeBetweenWaves: 5

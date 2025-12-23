@@ -1,4 +1,5 @@
 using UnityEngine;
+using VampireSurvivor.Core.Constants;
 
 namespace VampireSurvivor.Entities.Enemies
 {
@@ -22,7 +23,7 @@ namespace VampireSurvivor.Entities.Enemies
         private void Start()
         {
             // Find player
-            var player = GameObject.FindGameObjectWithTag("Player");
+            var player = GameObject.FindGameObjectWithTag(Tags.Player);
             if (player != null)
             {
                 _target = player.transform;

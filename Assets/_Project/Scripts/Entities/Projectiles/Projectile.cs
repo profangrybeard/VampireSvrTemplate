@@ -1,5 +1,6 @@
 using UnityEngine;
 using VampireSurvivor.Core;
+using VampireSurvivor.Core.Constants;
 using VampireSurvivor.Data;
 using VampireSurvivor.Interfaces;
 using VampireSurvivor.Systems.Pooling;
@@ -69,7 +70,7 @@ namespace VampireSurvivor.Entities.Projectiles
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (_weaponData == null) return;
-            if (!other.CompareTag("Enemy")) return;
+            if (!other.CompareTag(Tags.Enemy)) return;
 
             var damageable = other.GetComponent<IDamageable>();
             if (damageable != null)

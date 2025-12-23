@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using VampireSurvivor.Core;
+using VampireSurvivor.Core.Constants;
 using VampireSurvivor.Data;
 using VampireSurvivor.Entities.Enemies;
 using VampireSurvivor.Events;
@@ -35,7 +36,7 @@ namespace VampireSurvivor.Systems.Spawning
 
             if (_playerTransform == null)
             {
-                var player = GameObject.FindGameObjectWithTag("Player");
+                var player = GameObject.FindGameObjectWithTag(Tags.Player);
                 if (player != null)
                     _playerTransform = player.transform;
             }

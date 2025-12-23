@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VampireSurvivor.Core;
+using VampireSurvivor.Core.Constants;
 using VampireSurvivor.Data;
 using VampireSurvivor.Entities.Projectiles;
 using VampireSurvivor.Systems.Pooling;
@@ -163,7 +164,7 @@ namespace VampireSurvivor.Systems.Weapons
         private static void RefreshEnemyCache()
         {
             _enemyCache.Clear();
-            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            var enemies = GameObject.FindGameObjectsWithTag(Tags.Enemy);
             foreach (var enemy in enemies)
             {
                 if (enemy.activeInHierarchy)

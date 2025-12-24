@@ -142,6 +142,7 @@ namespace VampireSurvivor.Systems.Arena
         /// <summary>
         /// Generates random obstacles inside the arena.
         /// Obstacles avoid the center (player spawn) and edges (enemy spawn).
+        /// Weighted to distribute evenly across cardinal directions.
         /// </summary>
         private void GenerateObstacles()
         {
@@ -162,6 +163,9 @@ namespace VampireSurvivor.Systems.Arena
             int edgePadding = _config.WallThickness + _obstacleConfig.EdgePadding;
             int centerClear = _obstacleConfig.MinDistanceFromCenter;
 
+            // Track obstacles per quadrant: 0=North, 1=East, 2=South, 3=West
+            int[] quadrantCounts = new int[4];
+
             int obstaclesPlaced = 0;
             int maxAttempts = _obstacleConfig.ObstacleCount * 10; // Prevent infinite loops
             int attempts = 0;
@@ -173,13 +177,15 @@ namespace VampireSurvivor.Systems.Arena
                 // Get random obstacle size
                 Vector2Int size = _obstacleConfig.GetRandomSize();
 
-                // Get random position (in valid zone)
-                int minX = -halfWidth + edgePadding;
-                int maxX = halfWidth - edgePadding - size.x;
-                int minY = -halfHeight + edgePadding;
-                int maxY = halfHeight - edgePadding - size.y;
+                // Pick quadrant weighted toward least-populated
+                int quadrant = PickWeightedQuadrant(quadrantCounts);
 
-                if (maxX <= minX || maxY <= minY) continue; // Arena too small
+                // Get position bounds for selected quadrant
+                int minX, maxX, minY, maxY;
+                GetQuadrantBounds(quadrant, halfWidth, halfHeight, edgePadding, size,
+                    out minX, out maxX, out minY, out maxY);
+
+                if (maxX <= minX || maxY <= minY) continue; // Quadrant too small
 
                 int posX = Random.Range(minX, maxX + 1);
                 int posY = Random.Range(minY, maxY + 1);
@@ -215,10 +221,71 @@ namespace VampireSurvivor.Systems.Arena
                     }
                 }
 
+                quadrantCounts[quadrant]++;
                 obstaclesPlaced++;
             }
 
-            Debug.Log($"Obstacles generated: {obstaclesPlaced} obstacles ({_obstaclePositions.Count} tiles)");
+            Debug.Log($"Obstacles generated: {obstaclesPlaced} (N:{quadrantCounts[0]} E:{quadrantCounts[1]} S:{quadrantCounts[2]} W:{quadrantCounts[3]})");
+        }
+
+        /// <summary>
+        /// Picks a quadrant weighted toward those with fewer obstacles.
+        /// </summary>
+        private int PickWeightedQuadrant(int[] counts)
+        {
+            // Find min count
+            int minCount = int.MaxValue;
+            for (int i = 0; i < 4; i++)
+            {
+                if (counts[i] < minCount) minCount = counts[i];
+            }
+
+            // Collect quadrants at or near minimum (within 1)
+            List<int> candidates = new List<int>(4);
+            for (int i = 0; i < 4; i++)
+            {
+                if (counts[i] <= minCount + 1)
+                    candidates.Add(i);
+            }
+
+            return candidates[Random.Range(0, candidates.Count)];
+        }
+
+        /// <summary>
+        /// Gets position bounds for a quadrant. 0=North, 1=East, 2=South, 3=West.
+        /// </summary>
+        private void GetQuadrantBounds(int quadrant, int halfWidth, int halfHeight, int edgePadding,
+            Vector2Int size, out int minX, out int maxX, out int minY, out int maxY)
+        {
+            // Full valid range
+            int fullMinX = -halfWidth + edgePadding;
+            int fullMaxX = halfWidth - edgePadding - size.x;
+            int fullMinY = -halfHeight + edgePadding;
+            int fullMaxY = halfHeight - edgePadding - size.y;
+
+            switch (quadrant)
+            {
+                case 0: // North (positive Y)
+                    minX = fullMinX; maxX = fullMaxX;
+                    minY = 0; maxY = fullMaxY;
+                    break;
+                case 1: // East (positive X)
+                    minX = 0; maxX = fullMaxX;
+                    minY = fullMinY; maxY = fullMaxY;
+                    break;
+                case 2: // South (negative Y)
+                    minX = fullMinX; maxX = fullMaxX;
+                    minY = fullMinY; maxY = 0;
+                    break;
+                case 3: // West (negative X)
+                    minX = fullMinX; maxX = 0;
+                    minY = fullMinY; maxY = fullMaxY;
+                    break;
+                default:
+                    minX = fullMinX; maxX = fullMaxX;
+                    minY = fullMinY; maxY = fullMaxY;
+                    break;
+            }
         }
 
         /// <summary>

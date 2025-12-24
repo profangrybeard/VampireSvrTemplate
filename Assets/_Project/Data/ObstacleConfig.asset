@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c56720694f6a54ab44ee60abb047cc, type: 3}
   m_Name: ObstacleConfig
   m_EditorClassIdentifier: 
-  _obstacleCount: 0
-  _minObstacleSize: {x: 1, y: 1}
-  _maxObstacleSize: {x: 2, y: 2}
+  _obstacleCount: 2
+  _minObstacleSize: {x: 3, y: 3}
+  _maxObstacleSize: {x: 3, y: 3}
   _obstacleColor: {r: 0.4, g: 0.25, b: 0.15, a: 1}
-  _minDistanceFromCenter: 3
-  _edgePadding: 3
+  _minDistanceFromCenter: 6
+  _edgePadding: 6

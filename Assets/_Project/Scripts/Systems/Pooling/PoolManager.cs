@@ -6,9 +6,7 @@ using VampireSurvivor.Interfaces;
 
 namespace VampireSurvivor.Systems.Pooling
 {
-    /// <summary>
-    /// Central registry for all object pools. Configure pools in the Inspector.
-    /// </summary>
+    // Central registry for all object pools. Configure pools in the Inspector.
     public class PoolManager : MonoBehaviour
     {
         [Serializable]
@@ -73,9 +71,7 @@ namespace VampireSurvivor.Systems.Pooling
             _pools[key] = pool;
         }
 
-        /// <summary>
-        /// Get a typed pool by its key.
-        /// </summary>
+        // Get a typed pool by its key.
         public ObjectPool<T> GetPool<T>(string key) where T : Component, IPoolable
         {
             if (_pools.TryGetValue(key, out var pool))
@@ -86,44 +82,34 @@ namespace VampireSurvivor.Systems.Pooling
             return null;
         }
 
-        /// <summary>
-        /// Get an instance from the specified pool.
-        /// </summary>
+        // Get an instance from the specified pool.
         public T Get<T>(string key, Vector3 position, Quaternion rotation) where T : Component, IPoolable
         {
             var pool = GetPool<T>(key);
             return pool?.Get(position, rotation);
         }
 
-        /// <summary>
-        /// Get an instance from the specified pool.
-        /// </summary>
+        // Get an instance from the specified pool.
         public T Get<T>(string key, Vector3 position) where T : Component, IPoolable
         {
             return Get<T>(key, position, Quaternion.identity);
         }
 
-        /// <summary>
-        /// Return an instance to its pool.
-        /// </summary>
+        // Return an instance to its pool.
         public void Return<T>(string key, T instance) where T : Component, IPoolable
         {
             var pool = GetPool<T>(key);
             pool?.Return(instance);
         }
 
-        /// <summary>
-        /// Return all instances in a specific pool.
-        /// </summary>
+        // Return all instances in a specific pool.
         public void ReturnAll<T>(string key) where T : Component, IPoolable
         {
             var pool = GetPool<T>(key);
             pool?.ReturnAll();
         }
 
-        /// <summary>
-        /// Return all instances in all pools.
-        /// </summary>
+        // Return all instances in all pools.
         public void ReturnAllPools()
         {
             foreach (var pool in _pools.Values)

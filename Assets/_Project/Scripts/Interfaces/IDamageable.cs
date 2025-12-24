@@ -1,8 +1,6 @@
 namespace VampireSurvivor.Interfaces
 {
-    /// <summary>
-    /// Contract for any entity that can receive damage.
-    /// </summary>
+    // Contract for any entity that can receive damage.
     public interface IDamageable
     {
         void TakeDamage(float damage);

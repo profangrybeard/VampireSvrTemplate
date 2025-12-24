@@ -5,9 +5,7 @@ using VampireSurvivor.Events;
 
 namespace VampireSurvivor.UI
 {
-    /// <summary>
-    /// Displays current wave number.
-    /// </summary>
+    // Displays current wave number.
     public class WaveDisplay : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _waveText;

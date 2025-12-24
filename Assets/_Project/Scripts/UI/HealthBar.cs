@@ -5,9 +5,7 @@ using VampireSurvivor.Events;
 
 namespace VampireSurvivor.UI
 {
-    /// <summary>
-    /// Simple health bar UI that responds to player damage events.
-    /// </summary>
+    // Health bar UI that responds to player damage events.
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Image _fillImage;

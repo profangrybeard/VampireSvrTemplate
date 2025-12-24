@@ -4,10 +4,7 @@ using VampireSurvivor.Interfaces;
 
 namespace VampireSurvivor.Systems.Pooling
 {
-    /// <summary>
-    /// Generic object pool for any Component that implements IPoolable.
-    /// Prewarms on creation and grows dynamically as needed.
-    /// </summary>
+    // Generic object pool for any Component that implements IPoolable.
     public class ObjectPool<T> where T : Component, IPoolable
     {
         private readonly Queue<T> _available = new();
@@ -42,9 +39,7 @@ namespace VampireSurvivor.Systems.Pooling
             return instance;
         }
 
-        /// <summary>
-        /// Get an instance from the pool at the specified position and rotation.
-        /// </summary>
+        // Get an instance from the pool at the specified position and rotation.
         public T Get(Vector3 position, Quaternion rotation)
         {
             T instance = _available.Count > 0 ? _available.Dequeue() : CreateInstance();
@@ -57,17 +52,13 @@ namespace VampireSurvivor.Systems.Pooling
             return instance;
         }
 
-        /// <summary>
-        /// Get an instance from the pool at the specified position.
-        /// </summary>
+        // Get an instance from the pool at the specified position.
         public T Get(Vector3 position)
         {
             return Get(position, Quaternion.identity);
         }
 
-        /// <summary>
-        /// Return an instance to the pool.
-        /// </summary>
+        // Return an instance to the pool.
         public void Return(T instance)
         {
             if (!_inUse.Contains(instance)) return;
@@ -78,9 +69,7 @@ namespace VampireSurvivor.Systems.Pooling
             _available.Enqueue(instance);
         }
 
-        /// <summary>
-        /// Return all active instances to the pool.
-        /// </summary>
+        // Return all active instances to the pool.
         public void ReturnAll()
         {
             // Copy to avoid modifying collection during iteration
@@ -91,9 +80,7 @@ namespace VampireSurvivor.Systems.Pooling
             }
         }
 
-        /// <summary>
-        /// Destroy all pooled instances.
-        /// </summary>
+        // Destroy all pooled instances.
         public void Clear()
         {
             ReturnAll();

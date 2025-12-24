@@ -10,10 +10,7 @@ using VampireSurvivor.Systems.Pooling;
 
 namespace VampireSurvivor.Systems.Spawning
 {
-    /// <summary>
-    /// Manages wave-based enemy spawning.
-    /// Respects arena bounds when ArenaGenerator is present.
-    /// </summary>
+    // Manages wave-based enemy spawning. Respects arena bounds when ArenaGenerator is present.
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameConfig _config;
@@ -142,10 +139,7 @@ namespace VampireSurvivor.Systems.Spawning
             return (Vector2)_playerTransform.position + offset;
         }
 
-        /// <summary>
-        /// Gets a spawn position within the arena, away from the player.
-        /// Spawns near edges of playable area for challenge.
-        /// </summary>
+        // Gets a spawn position within the arena near edges.
         private Vector2 GetArenaSpawnPosition()
         {
             var (min, max) = _arenaGenerator.GetPlayableBounds();
@@ -191,9 +185,7 @@ namespace VampireSurvivor.Systems.Spawning
             StartWave(_currentWaveIndex + 1);
         }
 
-        /// <summary>
-        /// Force spawn a specific enemy type immediately.
-        /// </summary>
+        // Force spawn a specific enemy type immediately.
         public void SpawnEnemyImmediate(EnemyData enemyData, Vector2 position)
         {
             if (_poolManager == null) return;

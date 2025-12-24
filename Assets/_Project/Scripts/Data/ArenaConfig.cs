@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace VampireSurvivor.Data
 {
-    /// <summary>
-    /// Data-driven configuration for procedural arena generation.
-    /// Create assets via: Assets > Create > VampireSurvivor > ArenaConfig
-    /// </summary>
+    // Configuration for procedural arena generation.
     [CreateAssetMenu(fileName = "ArenaConfig", menuName = "VampireSurvivor/ArenaConfig")]
     public class ArenaConfig : ScriptableObject
     {
@@ -35,10 +32,7 @@ namespace VampireSurvivor.Data
         public Color WallColor => _wallColor;
         public int SpawnPadding => _spawnPadding;
 
-        /// <summary>
-        /// Gets the playable area bounds (inside the walls).
-        /// Returns min and max world positions.
-        /// </summary>
+        // Gets the playable area bounds (inside the walls).
         public (Vector2 min, Vector2 max) GetPlayableBounds()
         {
             // Arena is centered at origin
@@ -54,9 +48,7 @@ namespace VampireSurvivor.Data
             return (min, max);
         }
 
-        /// <summary>
-        /// Gets a random spawn position within the playable area.
-        /// </summary>
+        // Gets a random spawn position within the playable area.
         public Vector2 GetRandomSpawnPosition()
         {
             var (min, max) = GetPlayableBounds();
@@ -66,9 +58,7 @@ namespace VampireSurvivor.Data
             );
         }
 
-        /// <summary>
-        /// Checks if a position is within the playable area.
-        /// </summary>
+        // Checks if a position is within the playable area.
         public bool IsWithinBounds(Vector2 position)
         {
             var (min, max) = GetPlayableBounds();

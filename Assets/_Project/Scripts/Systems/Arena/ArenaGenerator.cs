@@ -7,13 +7,7 @@ using VampireSurvivor.Data;
 
 namespace VampireSurvivor.Systems.Arena
 {
-    /// <summary>
-    /// Procedurally generates a rectangular arena with ground tiles, wall borders,
-    /// and random interior obstacles. Creates all required components at runtime.
-    ///
-    /// Attach to an empty GameObject in the scene. Generates arena on Awake
-    /// so it's ready before other systems (like EnemySpawner, PathfindingManager) initialize.
-    /// </summary>
+    // Generates a rectangular arena with ground tiles, wall borders, and random obstacles at runtime.
     public class ArenaGenerator : MonoBehaviour
     {
         [SerializeField] private ArenaConfig _config;
@@ -47,9 +41,7 @@ namespace VampireSurvivor.Systems.Arena
             GenerateObstacles();
         }
 
-        /// <summary>
-        /// Creates the Grid and Tilemap GameObjects with required components.
-        /// </summary>
+        // Creates the Grid and Tilemap GameObjects with required components.
         private void CreateGridAndTilemaps()
         {
             // Create Grid (parent for all tilemaps)
@@ -94,9 +86,7 @@ namespace VampireSurvivor.Systems.Arena
             _wallCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
         }
 
-        /// <summary>
-        /// Generates the arena tiles based on config settings.
-        /// </summary>
+        // Generates the arena tiles based on config settings.
         private void GenerateArena()
         {
             // Create tiles using factory
@@ -139,11 +129,7 @@ namespace VampireSurvivor.Systems.Arena
             Debug.Log($"Arena generated: {width}x{height} tiles, wall thickness: {wallThickness}");
         }
 
-        /// <summary>
-        /// Generates random obstacles inside the arena.
-        /// Obstacles avoid the center (player spawn) and edges (enemy spawn).
-        /// Weighted to distribute evenly across cardinal directions.
-        /// </summary>
+        // Generates random obstacles, avoiding center and edges. Weighted for even cardinal distribution.
         private void GenerateObstacles()
         {
             if (_obstacleConfig == null || _obstacleConfig.ObstacleCount <= 0)
@@ -228,9 +214,7 @@ namespace VampireSurvivor.Systems.Arena
             Debug.Log($"Obstacles generated: {obstaclesPlaced} (N:{quadrantCounts[0]} E:{quadrantCounts[1]} S:{quadrantCounts[2]} W:{quadrantCounts[3]})");
         }
 
-        /// <summary>
-        /// Picks a quadrant weighted toward those with fewer obstacles.
-        /// </summary>
+        // Picks a quadrant weighted toward those with fewer obstacles.
         private int PickWeightedQuadrant(int[] counts)
         {
             // Find min count
@@ -251,9 +235,7 @@ namespace VampireSurvivor.Systems.Arena
             return candidates[Random.Range(0, candidates.Count)];
         }
 
-        /// <summary>
-        /// Gets position bounds for a quadrant. 0=North, 1=East, 2=South, 3=West.
-        /// </summary>
+        // Gets position bounds for a quadrant. 0=North, 1=East, 2=South, 3=West.
         private void GetQuadrantBounds(int quadrant, int halfWidth, int halfHeight, int edgePadding,
             Vector2Int size, out int minX, out int maxX, out int minY, out int maxY)
         {
@@ -288,51 +270,38 @@ namespace VampireSurvivor.Systems.Arena
             }
         }
 
-        /// <summary>
-        /// Checks if a tile position contains an obstacle.
-        /// </summary>
+        // Checks if a tile position contains an obstacle.
         public bool IsObstacle(Vector2Int tilePosition)
         {
             return _obstaclePositions.Contains(tilePosition);
         }
 
-        /// <summary>
-        /// Converts world position to tile position.
-        /// </summary>
+        // Converts world position to tile position.
         public Vector2Int WorldToTile(Vector2 worldPosition)
         {
             Vector3Int cell = _grid.WorldToCell(worldPosition);
             return new Vector2Int(cell.x, cell.y);
         }
 
-        /// <summary>
-        /// Gets a random position within the playable area (inside walls).
-        /// </summary>
+        // Gets a random position within the playable area.
         public Vector2 GetRandomSpawnPosition()
         {
             return _config.GetRandomSpawnPosition();
         }
 
-        /// <summary>
-        /// Gets the playable bounds of the arena.
-        /// </summary>
+        // Gets the playable bounds of the arena.
         public (Vector2 min, Vector2 max) GetPlayableBounds()
         {
             return _config.GetPlayableBounds();
         }
 
-        /// <summary>
-        /// Checks if a position is within the playable area.
-        /// </summary>
+        // Checks if a position is within the playable area.
         public bool IsWithinBounds(Vector2 position)
         {
             return _config.IsWithinBounds(position);
         }
 
-        /// <summary>
-        /// Clamps a position to stay within playable bounds.
-        /// Useful for camera clamping or preventing movement outside arena.
-        /// </summary>
+        // Clamps a position to stay within playable bounds.
         public Vector2 ClampToBounds(Vector2 position)
         {
             var (min, max) = GetPlayableBounds();

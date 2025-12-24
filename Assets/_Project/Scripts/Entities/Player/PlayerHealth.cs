@@ -7,10 +7,7 @@ using VampireSurvivor.Interfaces;
 
 namespace VampireSurvivor.Entities.Player
 {
-    /// <summary>
-    /// Manages player health, damage, and death.
-    /// Uses continuous damage model (DPS) for enemy contact.
-    /// </summary>
+    // Manages player health, damage, and death.
     public class PlayerHealth : MonoBehaviour, IDamageable, IKillable
     {
         [SerializeField] private GameConfig _config;
@@ -54,10 +51,7 @@ namespace VampireSurvivor.Entities.Player
             _currentHealth = Mathf.Min(MaxHealth, _currentHealth + amount);
         }
 
-        /// <summary>
-        /// Called every physics frame while player touches an enemy.
-        /// ContactDamage is treated as damage per second (DPS).
-        /// </summary>
+        // Called every physics frame while player touches an enemy. ContactDamage is DPS.
         private void OnCollisionStay2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag(Tags.Enemy))

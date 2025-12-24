@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace VampireSurvivor.Data
 {
-    /// <summary>
-    /// Defines an enemy type's stats and appearance.
-    /// Create instances via Assets > Create > VampireSurvivor > Enemy Data.
-    /// </summary>
+    // Defines an enemy type's stats and appearance.
     [CreateAssetMenu(fileName = "NewEnemy", menuName = "VampireSurvivor/Enemy Data")]
     public class EnemyData : ScriptableObject
     {

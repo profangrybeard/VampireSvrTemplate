@@ -12,10 +12,7 @@ namespace VampireSurvivor.Data
         [Min(0)] public float SpawnDelay = 0.5f;
     }
 
-    /// <summary>
-    /// Defines a spawn wave's composition and timing.
-    /// Create instances via Assets > Create > VampireSurvivor > Wave Data.
-    /// </summary>
+    // Defines a spawn wave's composition and timing.
     [CreateAssetMenu(fileName = "NewWave", menuName = "VampireSurvivor/Wave Data")]
     public class WaveData : ScriptableObject
     {

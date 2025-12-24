@@ -1,13 +1,6 @@
 namespace VampireSurvivor.Core.Constants
 {
-    /// <summary>
-    /// Centralized pool key constants. Use these instead of magic strings
-    /// to prevent typos and enable IDE autocomplete.
-    ///
-    /// These keys must match:
-    /// 1. PoolManager's Pool Configs in the Inspector
-    /// 2. ScriptableObject PoolKey/ProjectilePoolKey fields
-    /// </summary>
+    // Centralized pool key constants. Must match PoolManager configs and ScriptableObject fields.
     public static class PoolKeys
     {
         // Enemies

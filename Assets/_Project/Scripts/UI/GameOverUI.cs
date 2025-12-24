@@ -4,9 +4,7 @@ using VampireSurvivor.Core;
 
 namespace VampireSurvivor.UI
 {
-    /// <summary>
-    /// Game over screen with restart button.
-    /// </summary>
+    // Game over screen with restart button.
     public class GameOverUI : MonoBehaviour
     {
         [SerializeField] private Button _restartButton;

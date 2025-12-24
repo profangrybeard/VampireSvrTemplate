@@ -3,10 +3,7 @@ using VampireSurvivor.Events;
 
 namespace VampireSurvivor.Core
 {
-    /// <summary>
-    /// Central event dispatcher for decoupled system communication.
-    /// Uses strong-typed events to prevent runtime errors.
-    /// </summary>
+    // Central event dispatcher for decoupled system communication.
     public static class EventBus
     {
         // Enemy events
@@ -35,9 +32,7 @@ namespace VampireSurvivor.Core
         public static void Publish(GameOverEvent evt) => OnGameOver?.Invoke(evt);
         public static void Publish(GamePausedEvent evt) => OnGamePaused?.Invoke(evt);
 
-        /// <summary>
-        /// Clear all subscriptions. Call on scene reload to prevent memory leaks.
-        /// </summary>
+        // Clear all subscriptions. Call on scene reload to prevent memory leaks.
         public static void ClearAll()
         {
             OnEnemyKilled = null;

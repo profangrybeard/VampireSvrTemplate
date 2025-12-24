@@ -3,9 +3,7 @@ using VampireSurvivor.Data;
 
 namespace VampireSurvivor.Core
 {
-    /// <summary>
-    /// Smooth camera follow for 2D gameplay.
-    /// </summary>
+    // Smooth camera follow for 2D gameplay.
     public class CameraFollow : MonoBehaviour
     {
         [SerializeField] private Transform _target;
@@ -44,9 +42,7 @@ namespace VampireSurvivor.Core
             );
         }
 
-        /// <summary>
-        /// Set the camera target at runtime.
-        /// </summary>
+        // Set the camera target at runtime.
         public void SetTarget(Transform target)
         {
             _target = target;

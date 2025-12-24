@@ -3,10 +3,7 @@ using VampireSurvivor.Core.Constants;
 
 namespace VampireSurvivor.Entities.Enemies
 {
-    /// <summary>
-    /// Simple chase-player movement for enemies.
-    /// Enemies move directly toward the player and slide along obstacles.
-    /// </summary>
+    // Simple chase-player movement. Enemies move directly toward the player.
     [RequireComponent(typeof(Enemy))]
     [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyMovement : MonoBehaviour
@@ -40,9 +37,7 @@ namespace VampireSurvivor.Entities.Enemies
             _rb.linearVelocity = direction * _enemy.Data.MoveSpeed;
         }
 
-        /// <summary>
-        /// Set the target to chase (usually the player).
-        /// </summary>
+        // Set the target to chase.
         public void SetTarget(Transform target)
         {
             _target = target;

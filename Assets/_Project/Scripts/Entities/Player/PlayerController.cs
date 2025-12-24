@@ -4,9 +4,7 @@ using VampireSurvivor.Data;
 
 namespace VampireSurvivor.Entities.Player
 {
-    /// <summary>
-    /// Handles player movement using the new Input System.
-    /// </summary>
+    // Handles player movement using the new Input System.
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
@@ -53,9 +51,7 @@ namespace VampireSurvivor.Entities.Player
             _rb.linearVelocity = velocity;
         }
 
-        /// <summary>
-        /// External method for AI or abilities to move the player.
-        /// </summary>
+        // External method for AI or abilities to move the player.
         public void SetMoveInput(Vector2 input)
         {
             _moveInput = Vector2.ClampMagnitude(input, 1f);

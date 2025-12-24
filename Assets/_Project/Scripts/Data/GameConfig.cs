@@ -2,9 +2,7 @@ using UnityEngine;
 
 namespace VampireSurvivor.Data
 {
-    /// <summary>
-    /// Global game configuration. Single source of truth for game-wide settings.
-    /// </summary>
+    // Global game configuration.
     [CreateAssetMenu(fileName = "GameConfig", menuName = "VampireSurvivor/Game Config")]
     public class GameConfig : ScriptableObject
     {

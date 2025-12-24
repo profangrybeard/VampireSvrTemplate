@@ -7,9 +7,7 @@ using VampireSurvivor.Systems.Pooling;
 
 namespace VampireSurvivor.Entities.Projectiles
 {
-    /// <summary>
-    /// Base projectile class. Moves in a direction and damages enemies on contact.
-    /// </summary>
+    // Moves in a direction and damages enemies on contact.
     public class Projectile : MonoBehaviour, IPoolable
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -26,9 +24,7 @@ namespace VampireSurvivor.Entities.Projectiles
                 _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        /// <summary>
-        /// Initialize projectile after spawning.
-        /// </summary>
+        // Initialize projectile after spawning.
         public void Initialize(WeaponData data, Vector2 direction, string poolKey)
         {
             _weaponData = data;

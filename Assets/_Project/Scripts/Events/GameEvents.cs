@@ -3,9 +3,7 @@ using VampireSurvivor.Data;
 
 namespace VampireSurvivor.Events
 {
-    /// <summary>
-    /// Readonly struct events for zero-allocation event passing.
-    /// </summary>
+    // Readonly struct events for zero-allocation event passing.
 
     public readonly struct EnemyKilledEvent
     {

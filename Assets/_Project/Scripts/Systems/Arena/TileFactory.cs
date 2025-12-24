@@ -3,19 +3,10 @@ using UnityEngine.Tilemaps;
 
 namespace VampireSurvivor.Systems.Arena
 {
-    /// <summary>
-    /// Factory for creating colored tiles at runtime.
-    /// Eliminates need for manual tile asset creation in Editor.
-    /// </summary>
+    // Factory for creating colored tiles at runtime.
     public static class TileFactory
     {
-        /// <summary>
-        /// Creates a solid-colored tile programmatically.
-        /// </summary>
-        /// <param name="color">The fill color for the tile</param>
-        /// <param name="hasCollision">If true, TilemapCollider2D will generate collision for this tile</param>
-        /// <param name="pixelsPerUnit">Pixels per unit (default 1 = 1 tile = 1 unit)</param>
-        /// <returns>A Tile instance ready for use in a Tilemap</returns>
+        // Creates a solid-colored tile programmatically.
         public static Tile CreateColoredTile(Color color, bool hasCollision = false, int pixelsPerUnit = 1)
         {
             // Create a 1x1 pixel texture
@@ -50,17 +41,13 @@ namespace VampireSurvivor.Systems.Arena
             return tile;
         }
 
-        /// <summary>
-        /// Creates a standard ground tile (dark gray).
-        /// </summary>
+        // Creates a standard ground tile (dark gray).
         public static Tile CreateGroundTile()
         {
             return CreateColoredTile(new Color(0.2f, 0.2f, 0.25f)); // Dark blue-gray
         }
 
-        /// <summary>
-        /// Creates a standard wall tile (brown/rust).
-        /// </summary>
+        // Creates a standard wall tile (brown/rust).
         public static Tile CreateWallTile()
         {
             return CreateColoredTile(new Color(0.5f, 0.3f, 0.2f)); // Brown

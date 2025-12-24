@@ -3,10 +3,7 @@ using System.Collections.Generic;
 
 namespace VampireSurvivor.Core
 {
-    /// <summary>
-    /// Lightweight service container for dependency injection without tight coupling.
-    /// Prefer this over pure singletons for better testability.
-    /// </summary>
+    // Lightweight service container for dependency injection.
     public static class ServiceLocator
     {
         private static readonly Dictionary<Type, object> _services = new();

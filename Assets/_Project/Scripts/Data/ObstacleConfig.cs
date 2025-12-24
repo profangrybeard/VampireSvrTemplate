@@ -2,10 +2,7 @@ using UnityEngine;
 
 namespace VampireSurvivor.Data
 {
-    /// <summary>
-    /// Configuration for procedural obstacle generation within the arena.
-    /// Create assets via: Assets > Create > VampireSurvivor > ObstacleConfig
-    /// </summary>
+    // Configuration for procedural obstacle generation.
     [CreateAssetMenu(fileName = "ObstacleConfig", menuName = "VampireSurvivor/ObstacleConfig")]
     public class ObstacleConfig : ScriptableObject
     {
@@ -39,9 +36,7 @@ namespace VampireSurvivor.Data
         public int MinDistanceFromCenter => _minDistanceFromCenter;
         public int EdgePadding => _edgePadding;
 
-        /// <summary>
-        /// Gets a random obstacle size within the configured range.
-        /// </summary>
+        // Gets a random obstacle size within the configured range.
         public Vector2Int GetRandomSize()
         {
             return new Vector2Int(

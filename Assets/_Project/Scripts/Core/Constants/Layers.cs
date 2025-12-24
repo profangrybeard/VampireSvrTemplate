@@ -1,12 +1,6 @@
 namespace VampireSurvivor.Core.Constants
 {
-    /// <summary>
-    /// Centralized layer constants. Includes both names (for Inspector/LayerMask.NameToLayer)
-    /// and indices (for direct layer comparisons).
-    ///
-    /// These must match the layers created in Unity's Tag Manager:
-    /// Edit > Project Settings > Tags and Layers
-    /// </summary>
+    // Centralized layer constants. Must match layers in Project Settings.
     public static class Layers
     {
         // Layer names (use with LayerMask.NameToLayer() or Inspector fields)

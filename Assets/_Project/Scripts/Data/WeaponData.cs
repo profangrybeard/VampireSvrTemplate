@@ -11,10 +11,7 @@ namespace VampireSurvivor.Data
         AllDirections
     }
 
-    /// <summary>
-    /// Defines a weapon's stats and behavior.
-    /// Create instances via Assets > Create > VampireSurvivor > Weapon Data.
-    /// </summary>
+    // Defines a weapon's stats and behavior.
     [CreateAssetMenu(fileName = "NewWeapon", menuName = "VampireSurvivor/Weapon Data")]
     public class WeaponData : ScriptableObject
     {

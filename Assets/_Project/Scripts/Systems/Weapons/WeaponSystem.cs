@@ -8,9 +8,7 @@ using VampireSurvivor.Systems.Pooling;
 
 namespace VampireSurvivor.Systems.Weapons
 {
-    /// <summary>
-    /// Manages weapon firing for the player. Attach to player or child object.
-    /// </summary>
+    // Manages weapon firing for the player.
     public class WeaponSystem : MonoBehaviour
     {
         [SerializeField] private WeaponData _weaponData;
@@ -185,9 +183,7 @@ namespace VampireSurvivor.Systems.Weapons
             );
         }
 
-        /// <summary>
-        /// Equip a new weapon at runtime.
-        /// </summary>
+        // Equip a new weapon at runtime.
         public void EquipWeapon(WeaponData weapon)
         {
             _weaponData = weapon;

@@ -3,9 +3,7 @@ using VampireSurvivor.Events;
 
 namespace VampireSurvivor.Core
 {
-    /// <summary>
-    /// Central game state manager. Handles pause, game over, and restart.
-    /// </summary>
+    // Central game state manager. Handles pause, game over, and restart.
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }

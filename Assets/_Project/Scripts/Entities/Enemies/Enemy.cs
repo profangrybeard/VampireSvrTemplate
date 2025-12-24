@@ -7,9 +7,7 @@ using VampireSurvivor.Systems.Pooling;
 
 namespace VampireSurvivor.Entities.Enemies
 {
-    /// <summary>
-    /// Base enemy class. Handles health, damage, and pooling lifecycle.
-    /// </summary>
+    // Base enemy class. Handles health, damage, and pooling lifecycle.
     [RequireComponent(typeof(Rigidbody2D))]
     public class Enemy : MonoBehaviour, IDamageable, IPoolable, IKillable
     {
@@ -30,9 +28,7 @@ namespace VampireSurvivor.Entities.Enemies
                 _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        /// <summary>
-        /// Initialize this enemy with data. Called after spawning from pool.
-        /// </summary>
+        // Initialize this enemy with data. Called after spawning from pool.
         public void Initialize(EnemyData data)
         {
             _data = data;

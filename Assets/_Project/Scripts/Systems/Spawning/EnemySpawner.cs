@@ -5,12 +5,14 @@ using VampireSurvivor.Core.Constants;
 using VampireSurvivor.Data;
 using VampireSurvivor.Entities.Enemies;
 using VampireSurvivor.Events;
+using VampireSurvivor.Systems.Arena;
 using VampireSurvivor.Systems.Pooling;
 
 namespace VampireSurvivor.Systems.Spawning
 {
     /// <summary>
     /// Manages wave-based enemy spawning.
+    /// Respects arena bounds when ArenaGenerator is present.
     /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
@@ -18,6 +20,7 @@ namespace VampireSurvivor.Systems.Spawning
         [SerializeField] private Transform _playerTransform;
 
         private PoolManager _poolManager;
+        private ArenaGenerator _arenaGenerator;
         private int _currentWaveIndex;
         private bool _isSpawning;
         private Coroutine _spawnCoroutine;
@@ -33,6 +36,7 @@ namespace VampireSurvivor.Systems.Spawning
         private void Start()
         {
             _poolManager = ServiceLocator.Get<PoolManager>();
+            _arenaGenerator = ServiceLocator.Get<ArenaGenerator>();
 
             if (_playerTransform == null)
             {
@@ -126,10 +130,50 @@ namespace VampireSurvivor.Systems.Spawning
 
         private Vector2 GetSpawnPosition(float radius)
         {
-            // Spawn in a ring around the player (off-screen)
+            // If arena exists, spawn within arena bounds
+            if (_arenaGenerator != null)
+            {
+                return GetArenaSpawnPosition();
+            }
+
+            // Fallback: Spawn in a ring around the player (off-screen)
             float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
             Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
             return (Vector2)_playerTransform.position + offset;
+        }
+
+        /// <summary>
+        /// Gets a spawn position within the arena, away from the player.
+        /// Spawns near edges of playable area for challenge.
+        /// </summary>
+        private Vector2 GetArenaSpawnPosition()
+        {
+            var (min, max) = _arenaGenerator.GetPlayableBounds();
+            Vector2 playerPos = _playerTransform.position;
+
+            // Try to spawn on the opposite side of the arena from the player
+            // Pick a random edge (0=left, 1=right, 2=bottom, 3=top)
+            int edge = Random.Range(0, 4);
+            float padding = 1f; // Stay slightly inside the edge
+
+            Vector2 spawnPos;
+            switch (edge)
+            {
+                case 0: // Left edge
+                    spawnPos = new Vector2(min.x + padding, Random.Range(min.y, max.y));
+                    break;
+                case 1: // Right edge
+                    spawnPos = new Vector2(max.x - padding, Random.Range(min.y, max.y));
+                    break;
+                case 2: // Bottom edge
+                    spawnPos = new Vector2(Random.Range(min.x, max.x), min.y + padding);
+                    break;
+                default: // Top edge
+                    spawnPos = new Vector2(Random.Range(min.x, max.x), max.y - padding);
+                    break;
+            }
+
+            return spawnPos;
         }
 
         private void HandleWaveCompleted(WaveCompletedEvent evt)

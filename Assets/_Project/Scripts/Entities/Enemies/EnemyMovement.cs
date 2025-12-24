@@ -5,6 +5,7 @@ namespace VampireSurvivor.Entities.Enemies
 {
     /// <summary>
     /// Simple chase-player movement for enemies.
+    /// Enemies move directly toward the player and slide along obstacles.
     /// </summary>
     [RequireComponent(typeof(Enemy))]
     [RequireComponent(typeof(Rigidbody2D))]

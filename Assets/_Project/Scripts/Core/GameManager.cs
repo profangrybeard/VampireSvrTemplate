@@ -38,6 +38,8 @@ namespace VampireSurvivor.Core
 
         private void Start()
         {
+            Debug.Log($"<color=cyan>[VampireSurvivor]</color> {ProjectVersion.FullVersion} ({ProjectVersion.ReleaseDate})");
+
             IsGameOver = false;
             IsPaused = false;
             GameTime = 0f;

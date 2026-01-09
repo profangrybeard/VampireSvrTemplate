@@ -920,10 +920,13 @@ MonoBehaviour:
   _poolConfigs:
   - Key: enemy_bat
     Prefab: {fileID: 4361799514113471220, guid: 294986b391ee2fd48b370fb5845b2c6c, type: 3}
-    InitialSize: 100
+    InitialSize: 20
   - Key: projectile_magic
     Prefab: {fileID: 4820992161728166149, guid: 4e865085fb5ddb7458f41cfef35855ce, type: 3}
     InitialSize: 30
+  - Key: enemy_skeleton
+    Prefab: {fileID: 4361799514113471220, guid: ae5300cef2861a841971afc1043ea8e1, type: 3}
+    InitialSize: 20
 --- !u!4 &1252199632
 Transform:
   m_ObjectHideFlags: 0

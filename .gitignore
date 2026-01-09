@@ -100,3 +100,6 @@ InitTestScene*.unity*
 
 CLAUDE.*
 Directions.md
+.plastic/plastic.selector
+.plastic/plastic.wktree
+.plastic/plastic.workspace

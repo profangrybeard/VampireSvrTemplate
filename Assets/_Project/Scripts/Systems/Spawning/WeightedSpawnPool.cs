@@ -13,9 +13,41 @@ namespace VampireSurvivor.Systems.Spawning
         [Min(1)] public int SpawnWeight = 10;
     }
 
-    // Manages weighted random enemy selection with consumption.
-    // Higher-weighted enemies spawn more frequently until their weight is depleted,
-    // then lower-weighted enemies get their turn.
+    /// <summary>
+    /// A "deck of cards" system for spawning enemies.
+    ///
+    /// Each enemy type has a weight (number of "cards" in the deck). When you draw,
+    /// that card is removed. Higher-weighted enemies have more cards, so they appear
+    /// more often early on, but eventually get depleted.
+    ///
+    /// <b>Setup Example:</b>
+    /// <code>
+    /// Bat: weight 10    → [Bat, Bat, Bat, Bat, Bat, Bat, Bat, Bat, Bat, Bat]
+    /// Skeleton: weight 3 → [Skeleton, Skeleton, Skeleton]
+    /// Boss: weight 1    → [Boss]
+    /// </code>
+    ///
+    /// <b>Two Drawing Modes:</b>
+    ///
+    /// 1. <b>Interleaved (Round-Robin):</b> Cycles through types in order. Each visit consumes 1 weight.
+    /// <code>
+    /// Spawn 1: Bat (9 left)
+    /// Spawn 2: Skeleton (2 left)
+    /// Spawn 3: Boss (0 left - removed from rotation)
+    /// Spawn 4: Bat (8 left)
+    /// Spawn 5: Skeleton (1 left)
+    /// Spawn 6: Bat (7 left)
+    /// ...continues until all depleted
+    /// </code>
+    ///
+    /// 2. <b>PureWeighted:</b> Random roll each spawn. Total weight = 14, so Bat has 10/14 chance (~71%),
+    /// Skeleton 3/14 (~21%), Boss 1/14 (~7%). As weights deplete, probabilities shift.
+    ///
+    /// <b>Key Methods:</b>
+    /// - <see cref="GetNext"/> - Returns next enemy and consumes 1 weight
+    /// - <see cref="Reset"/> - Refills all weights (for infinite waves)
+    /// - <see cref="IsExhausted"/> - True when all weights are 0
+    /// </summary>
     public class WeightedSpawnPool
     {
         private readonly List<WeightedSpawnEntry> _entries;

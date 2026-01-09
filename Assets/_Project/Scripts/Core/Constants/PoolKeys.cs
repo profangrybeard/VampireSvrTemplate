@@ -11,8 +11,6 @@ namespace VampireSurvivor.Core.Constants
         public const string ProjectileMagic = "projectile_magic";
         public const string ProjectileBomb = "projectile_bomb";
 
-        // Add new pool keys here as you create more enemy/projectile types:
-        // public const string EnemySkeleton = "enemy_skeleton";
-        // public const string ProjectileFire = "projectile_fire";
+        // Add new pool keys here as you create more enemy/projectile types
     }
 }

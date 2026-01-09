@@ -83,7 +83,32 @@ namespace VampireSurvivor.Systems.Spawning
             // Initial delay
             yield return new WaitForSeconds(waveData.StartDelay);
 
-            // Spawn each enemy entry
+            switch (waveData.SpawnMode)
+            {
+                case SpawnMode.Interleaved:
+                case SpawnMode.PureWeighted:
+                    if (waveData.WeightedEnemies != null && waveData.WeightedEnemies.Length > 0)
+                    {
+                        yield return SpawnWeightedEnemies(waveData);
+                    }
+                    break;
+
+                case SpawnMode.Sequential:
+                default:
+                    yield return SpawnSequentialEnemies(waveData);
+                    break;
+            }
+
+            _isSpawning = false;
+
+            // Wait before completing wave
+            yield return new WaitForSeconds(1f);
+
+            EventBus.Publish(new WaveCompletedEvent(_currentWaveIndex + 1));
+        }
+
+        private IEnumerator SpawnSequentialEnemies(WaveData waveData)
+        {
             foreach (var entry in waveData.Enemies)
             {
                 if (entry.EnemyType == null) continue;
@@ -94,13 +119,31 @@ namespace VampireSurvivor.Systems.Spawning
                     yield return new WaitForSeconds(entry.SpawnDelay);
                 }
             }
+        }
 
-            _isSpawning = false;
+        private IEnumerator SpawnWeightedEnemies(WaveData waveData)
+        {
+            bool useInterleaved = waveData.SpawnMode == SpawnMode.Interleaved;
+            var spawnPool = new WeightedSpawnPool(waveData.WeightedEnemies, useInterleaved);
 
-            // Wait before completing wave
-            yield return new WaitForSeconds(1f);
+            for (int i = 0; i < waveData.TotalWeightedSpawns; i++)
+            {
+                var enemyData = spawnPool.GetNext();
 
-            EventBus.Publish(new WaveCompletedEvent(_currentWaveIndex + 1));
+                // If pool is exhausted before reaching total, reset and continue
+                if (enemyData == null)
+                {
+                    spawnPool.Reset();
+                    enemyData = spawnPool.GetNext();
+
+                    // Still null means no valid enemies configured
+                    if (enemyData == null)
+                        break;
+                }
+
+                SpawnEnemy(enemyData, waveData.SpawnRadius);
+                yield return new WaitForSeconds(waveData.WeightedSpawnDelay);
+            }
         }
 
         private void SpawnEnemy(EnemyData enemyData, float spawnRadius)

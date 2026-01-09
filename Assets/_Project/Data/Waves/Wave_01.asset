@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaveName: Wave 1
   StartDelay: 2
+  SpawnMode: 2
   Enemies:
   - EnemyType: {fileID: 11400000, guid: b8a97ef6597ad8a41bee4c576886a530, type: 2}
     Count: 20
@@ -21,5 +22,12 @@ MonoBehaviour:
   - EnemyType: {fileID: 11400000, guid: 2362157d85ee3a94aa9a47f235b5dedb, type: 2}
     Count: 20
     SpawnDelay: 0.5
+  WeightedEnemies:
+  - EnemyType: {fileID: 11400000, guid: b8a97ef6597ad8a41bee4c576886a530, type: 2}
+    SpawnWeight: 75
+  - EnemyType: {fileID: 11400000, guid: 2362157d85ee3a94aa9a47f235b5dedb, type: 2}
+    SpawnWeight: 25
+  TotalWeightedSpawns: 100
+  WeightedSpawnDelay: 0.5
   SpawnRadius: 12
   SpawnFromOffscreen: 1

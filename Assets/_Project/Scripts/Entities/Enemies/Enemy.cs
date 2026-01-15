@@ -116,6 +116,13 @@ namespace VampireSurvivor.Entities.Enemies
             {
                 _rb.linearVelocity = Vector2.zero;
             }
+
+            // Reset movement state to prevent state carryover
+            var movement = GetComponent<EnemyMovement>();
+            if (movement != null)
+            {
+                movement.ResetMovementState();
+            }
         }
     }
 }

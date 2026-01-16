@@ -5,12 +5,12 @@ namespace VampireSurvivor.Core
     public static class ProjectVersion
     {
         public const int Major = 1;
-        public const int Minor = 1;
+        public const int Minor = 2;
         public const int Patch = 0;
 
-        public const string VersionString = "1.1.0";
-        public const string ReleaseDate = "2026-01-09";
-        public const string ReleaseNotes = "Added weighted enemy spawn system (Sequential/Interleaved/PureWeighted modes), version tracking system";
+        public const string VersionString = "1.2.0";
+        public const string ReleaseDate = "2026-01-15";
+        public const string ReleaseNotes = "Added data-driven movement types (Chase/Zigzag/Wander) with enum-based configuration";
 
         public static string FullVersion => $"v{Major}.{Minor}.{Patch}";
     }

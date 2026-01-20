@@ -38,6 +38,9 @@ namespace VampireSurvivor.Systems.Weapons
                 Fire();
                 _fireCooldown = 1f / _weaponData.FireRate;
             }
+
+            //RefreshEnemyCache(); //for demoing performance hits in the heirarchy. Not necessary.
+
         }
 
         private void Fire()
